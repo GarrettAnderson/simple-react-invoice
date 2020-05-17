@@ -22,12 +22,14 @@ class Invoice extends Component {
 
   selectItem = (event) => {
     console.log(event)
-    this.setState({selectedItems: [...this.state.selectedItems, event.target.value]})
+    let selectedItem = this.state.lineItems[parseInt(event.target.value)]
+    console.log(selectedItem)
+    this.setState({selectedItems: [...this.state.selectedItems, ...{selectedItem}]})
   }
 
   addItem = (item) => {
-    console.log(item)
-    this.setState(prevState => ({selectedItems: [...prevState.selectedItems, Object.keys({item})]}))
+    console.log('item')
+    this.setState(prevState => ({selectedItems: [...prevState.selectedItems, this.state.lineItems[item]]}))
   }
 
   render() {
@@ -39,7 +41,7 @@ class Invoice extends Component {
         </div>
         <div className="item-choice">
           <select className="line-items" onChange={this.selectItem}>
-            {this.state.lineItems.map((item, i) => <option key={item.id} onClick={this.addItem(item)}>{item.item}</option>)}
+            {this.state.lineItems.map((item, index) => <option key={item.id} value={index}>{item.item}</option>)}
           </select>
         <div className="selected-item">{this.state.selectedItems.map((item) => <div key={item.id}>{item}</div>)}</div>
         </div>
