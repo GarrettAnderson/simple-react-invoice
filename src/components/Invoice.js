@@ -25,6 +25,11 @@ class Invoice extends Component {
     this.setState({selectedItems: [...this.state.selectedItems, event.target.value]})
   }
 
+  addItem = (item) => {
+    console.log(item)
+    this.setState(prevState => ({selectedItems: [...prevState.selectedItems, Object.keys({item})]}))
+  }
+
   render() {
     return (
       <div className="invoice">
@@ -34,9 +39,9 @@ class Invoice extends Component {
         </div>
         <div className="item-choice">
           <select className="line-items" onChange={this.selectItem}>
-            {this.state.lineItems.map((item) => <option key={item.id}>{item.item}</option>)}
+            {this.state.lineItems.map((item, i) => <option key={item.id} onClick={this.addItem(item)}>{item.item}</option>)}
           </select>
-    <div className="selected-item">{this.state.selectedItems.map((item) => <div key={item.id}>{item}</div>)}</div>
+        <div className="selected-item">{this.state.selectedItems.map((item) => <div key={item.id}>{item}</div>)}</div>
         </div>
       </div>
     )
