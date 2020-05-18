@@ -45,7 +45,7 @@ class Invoice extends Component {
   }
 
   calcQuantity = (event) => {
-    const newQuantity = this.state.selectedItems.map((quantity) => {
+    let newQuantity = this.state.selectedItems.map((quantity, i) => {
       return {...quantity, quantity: event.target.value}
     })
     console.log(newQuantity)
@@ -53,8 +53,13 @@ class Invoice extends Component {
   }
 
   calcSelectedItemsTotal = () => {
-    return this.state.selectedItems.reduce((prev, cur) =>  
-    (prev + (cur.quantity * cur.price)),0)
+    return this.state.selectedItems.reduce((prev, cur) => {
+      if (!cur.quantity) {
+        return (prev + cur.price)
+      } else {
+        return (prev + (cur.quantity * cur.price))
+      }
+    },0)
   }
 
   render() {
