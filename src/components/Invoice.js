@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import LineItems from './LineItems'
+import LineItem from './LineItem'
 
 
 class Invoice extends Component {
+  
+  locale = 'en-US'
+  currency = 'USD'
+
   state = {
     lineItems: [],
-    selectedItems: ['']
+    selectedItems: []
   }
 
   componentDidMount() {
@@ -29,9 +35,24 @@ class Invoice extends Component {
     this.setState({selectedItems: Array.from(newList)})
   }
 
-  addItem = (item) => {
-    console.log('item')
-    this.setState(prevState => ({selectedItems: [...prevState.selectedItems, this.state.lineItems[item]]}))
+  formatCurrency = (amount) => {
+    return (new Intl.NumberFormat(this.locale, {
+      style: 'currency',
+      currency: this.currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(amount))
+  }
+
+  calcQuantity = (event) => {
+    const newQuantity = this.state.selectedItems.map((quantity) => {
+      return {...quantity, quantity: event.target.value}
+    })
+    console.log(newQuantity)
+  }
+
+  calcSelectedItemsTotal = () => {
+    return this.state.selectedItems.reduce((prev, cur) => (prev + (cur.price)), 0)
   }
 
   render() {
@@ -45,9 +66,15 @@ class Invoice extends Component {
           <select className="line-items" onChange={this.selectItem}>
             {this.state.lineItems.map((item, index) => <option key={item.id} value={index}>{item.item}</option>)}
           </select>
-          <div className="selected-item">{this.state.selectedItems.map((item, index) => 
-            <div key={item.id} value={index}>{item.id}</div>
+          <LineItems items={this.state.selectedItems} quantity={this.calcQuantity}/>
+          {/* <div className="selected-item">{this.state.selectedItems.map((item, index) => 
+            <LineItem name={item.item} details={item.details} price={item.price}></LineItem>
             )}
+          </div> */}
+
+          <div className="total">
+            <label>Total</label>
+            <div>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
           </div>
         </div>
       </div>
