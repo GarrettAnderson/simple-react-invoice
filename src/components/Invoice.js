@@ -49,10 +49,17 @@ class Invoice extends Component {
       return {...quantity, quantity: event.target.value}
     })
     console.log(newQuantity)
+    this.setState({selectedItems: newQuantity})
   }
 
   calcSelectedItemsTotal = () => {
-    return this.state.selectedItems.reduce((prev, cur) => (prev + (cur.price)), 0)
+    return this.state.selectedItems.reduce((prev, cur) =>  {
+      if(cur.quantity === undefined) {
+        return (prev + (cur.price))
+      } else {
+        return (prev + (cur.quantity * cur.price))
+      }
+    }, 0)
   }
 
   render() {
@@ -67,11 +74,6 @@ class Invoice extends Component {
             {this.state.lineItems.map((item, index) => <option key={item.id} value={index}>{item.item}</option>)}
           </select>
           <LineItems items={this.state.selectedItems} quantity={this.calcQuantity}/>
-          {/* <div className="selected-item">{this.state.selectedItems.map((item, index) => 
-            <LineItem name={item.item} details={item.details} price={item.price}></LineItem>
-            )}
-          </div> */}
-
           <div className="total">
             <label>Total</label>
             <div>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
