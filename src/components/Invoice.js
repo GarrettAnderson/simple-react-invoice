@@ -24,7 +24,8 @@ class Invoice extends Component {
     console.log(event)
     let selectedItem = this.state.lineItems[parseInt(event.target.value)]
     console.log(selectedItem)
-    this.setState({selectedItems: [...this.state.selectedItems, ...{selectedItem}]})
+    this.state.selectedItems.push(selectedItem)
+    console.log(this.state.selectedItems)
   }
 
   addItem = (item) => {
@@ -43,7 +44,10 @@ class Invoice extends Component {
           <select className="line-items" onChange={this.selectItem}>
             {this.state.lineItems.map((item, index) => <option key={item.id} value={index}>{item.item}</option>)}
           </select>
-        <div className="selected-item">{this.state.selectedItems.map((item) => <div key={item.id}>{item}</div>)}</div>
+          <div className="selected-item">{this.state.selectedItems.map((item, index) => 
+            <div key={item.id} value={index}>{item}</div>
+            )}
+          </div>
         </div>
       </div>
     )
