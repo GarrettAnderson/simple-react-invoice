@@ -5,7 +5,7 @@ import axios from 'axios'
 class Invoice extends Component {
   state = {
     lineItems: [],
-    selectedItems: []
+    selectedItems: ['']
   }
 
   componentDidMount() {
@@ -24,8 +24,9 @@ class Invoice extends Component {
     console.log(event)
     let selectedItem = this.state.lineItems[parseInt(event.target.value)]
     console.log(selectedItem)
-    this.state.selectedItems.push(selectedItem)
-    console.log(this.state.selectedItems)
+    let newList = this.state.selectedItems.concat(selectedItem)
+    console.log(newList)
+    this.setState({selectedItems: Array.from(newList)})
   }
 
   addItem = (item) => {
@@ -45,7 +46,7 @@ class Invoice extends Component {
             {this.state.lineItems.map((item, index) => <option key={item.id} value={index}>{item.item}</option>)}
           </select>
           <div className="selected-item">{this.state.selectedItems.map((item, index) => 
-            <div key={item.id} value={index}>{item}</div>
+            <div key={item.id} value={index}>{item.id}</div>
             )}
           </div>
         </div>
