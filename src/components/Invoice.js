@@ -20,10 +20,10 @@ class Invoice extends Component {
       'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXJjaGFudCI6IjZkMzI5Nzk3LWI2NGQtNDdkMS1hNDU3LTQ3OThlMmIzNjFiNSIsImdvZFVzZXIiOmZhbHNlLCJzdWIiOiI0ODI3ODAzNi1jYzE5LTQ3YWItYTgyOC03MzRiOWUxYWNlMDIiLCJpc3MiOiJodHRwOi8vYXBpZGVtby5mYXR0bGFicy5jb20vdGVhbS9hcGlrZXkiLCJpYXQiOjE1NTU0Mjg2MzMsImV4cCI6NDcwOTAyODYzMywibmJmIjoxNTU1NDI4NjMzLCJqdGkiOiJxZTNueklKdWlDOFhKN1dhIiwiYXNzdW1pbmciOmZhbHNlfQ.TEmlwmgVBLwt5x0FO4c-mbY3JgO_tgxcFRfznlOGSrM'
     axios.get('https://apidemo.fattlabs.com/item', { headers: { Authorization: AuthStr } }).then((resp) => {
       console.log(resp.data.data)
-      this.setState({
-        lineItems: resp.data.data
-      })
-      let newQuantity = this.state.lineItems.map((quantity, i) => {
+      // this.setState({
+      //   lineItems: resp.data.data
+      // })
+      let newQuantity = resp.data.data.map((quantity, i) => {
         return {...quantity, quantity: 0}
       })
       console.log(newQuantity)
@@ -49,13 +49,14 @@ class Invoice extends Component {
     }).format(amount))
   }
 
-  // calcQuantity = (event) => {
-  //   let newQuantity = this.state.selectedItems.map((quantity, i) => {
-  //     return {...quantity, quantity: event.target.value}
-  //   })
-  //   console.log(newQuantity)
-  //   this.setState({selectedItems: newQuantity})
-  // }
+  calcQuantity = (elementIndex, event) => {
+    let updatedQuantity = this.state.selectedItems.map((quantity, i) => {
+      if (elementIndex !== i) return quantity
+      return {...quantity, [event.target.name]: event.target.value}
+    })
+    console.log(updatedQuantity)
+    this.setState({selectedItems: updatedQuantity})
+  }
 
   calcSelectedItemsTotal = () => {
     console.log(this.state.selectedItems)
