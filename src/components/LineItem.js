@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class LineItem extends Component {
   render() {
     return (
-      <form>
         <div className="lineItem">
             <div>{this.props.name ? this.props.name : 'Item Name'}</div>
             <div>{this.props.details ? this.props.details : 'No Details'} </div>
@@ -11,7 +10,6 @@ class LineItem extends Component {
             <div>{this.props.price ? this.props.price : 0}</div>
             <div>{this.props.currencyFormatter(this.props.quantity * this.props.price)}</div>
         </div>
-      </form>
     );
   }
 }
