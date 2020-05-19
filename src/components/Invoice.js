@@ -23,6 +23,11 @@ class Invoice extends Component {
       this.setState({
         lineItems: resp.data.data
       })
+      let newQuantity = this.state.lineItems.map((quantity, i) => {
+        return {...quantity, quantity: 0}
+      })
+      console.log(newQuantity)
+      this.setState({lineItems: newQuantity})
     })
   }
 
@@ -44,17 +49,22 @@ class Invoice extends Component {
     }).format(amount))
   }
 
-  calcQuantity = (event) => {
-    let newQuantity = this.state.selectedItems.map((quantity, i) => {
-      return {...quantity, quantity: event.target.value}
-    })
-    console.log(newQuantity)
-    this.setState({selectedItems: newQuantity})
-  }
+  // calcQuantity = (event) => {
+  //   let newQuantity = this.state.selectedItems.map((quantity, i) => {
+  //     return {...quantity, quantity: event.target.value}
+  //   })
+  //   console.log(newQuantity)
+  //   this.setState({selectedItems: newQuantity})
+  // }
 
   calcSelectedItemsTotal = () => {
-    return this.state.selectedItems.reduce((prev, cur) => {
+    console.log(this.state.selectedItems)
+    return this.state.selectedItems
+    .reduce((prev, cur) => {
+      console.log(prev)
+      console.log(cur)
       if (!cur.quantity) {
+        console.log(prev)
         return (prev + cur.price)
       } else {
         return (prev + (cur.quantity * cur.price))
@@ -73,7 +83,7 @@ class Invoice extends Component {
           <select className="line-items" onChange={this.selectItem}>
             {this.state.lineItems.map((item, index) => <option key={item.id} value={index}>{item.item}</option>)}
           </select>
-          <LineItems items={this.state.selectedItems} quantity={this.calcQuantity}/>
+          <LineItems items={this.state.selectedItems} currencyFormat={this.formatCurrency}/>
           <div className="total">
             <label>Total</label>
             <div>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>

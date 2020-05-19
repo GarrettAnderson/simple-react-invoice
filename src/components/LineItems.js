@@ -13,9 +13,10 @@ class LineItems extends Component {
               <div>Details</div>
               <div>Qty</div>
               <div>Price</div>
+              <div>Amount</div>
             </div>
             <div className="selected-item">{this.props.items.map((item, index) => 
-              <LineItem item={item.id} name={item.item} details={item.details} price={item.price} calcItemQuantity={this.props.quantity}/>
+              <LineItem item={item.id} name={item.item} details={item.details} price={item.price} calcItemQuantity={this.props.quantity} currencyFormatter={this.props.currencyFormat}/>
             )}
           </div>
 
