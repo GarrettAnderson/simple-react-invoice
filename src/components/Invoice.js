@@ -10,7 +10,10 @@ class Invoice extends Component {
 
   state = {
     lineItems: [],
-    selectedItems: []
+    selectedItems: [],
+    userData: {
+      total: 0
+    }
   }
 
   componentDidMount() {
@@ -128,7 +131,7 @@ class Invoice extends Component {
           <LineItems items={this.state.selectedItems} currencyFormat={this.formatCurrency} updateQuantity={this.calcQuantity}/>
           <div className="total">
             <label>Total</label>
-            <div>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
+            <div onChange={this.handleChange}>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
           </div>
           <button onClick={this.submit}>Submit</button>
         </div>
