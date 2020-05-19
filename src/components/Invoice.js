@@ -37,12 +37,7 @@ class Invoice extends Component {
     console.log(selectedItem)
     let newList = this.state.selectedItems.concat(selectedItem)
     console.log(newList)
-    let updatedQuantity = newList.map((quantity, i) => {
-      return {...quantity, quantity: 1}
-    })
-    console.log(updatedQuantity)
-    this.setState({selectedItems: updatedQuantity})
-    // this.setState({selectedItems: Array.from(newList)})
+    this.setState({selectedItems: Array.from(newList)})
   }
 
   formatCurrency = (amount) => {
@@ -54,8 +49,10 @@ class Invoice extends Component {
     }).format(amount))
   }
 
-  calcQuantity = (event) => {
+  calcQuantity (event) => {
+    console.log('updated the quantity amount')
     let updatedQuantity = this.state.selectedItems.map((quantity, i) => {
+      console.log(quantity)
       return {...quantity, quantity: event.target.value}
     })
     console.log(updatedQuantity)
@@ -64,17 +61,21 @@ class Invoice extends Component {
 
   calcSelectedItemsTotal = () => {
     console.log(this.state.selectedItems)
-    return this.state.selectedItems
-    .reduce((prev, cur) => {
-      console.log(prev)
-      console.log(cur)
-      if (!cur.quantity) {
-        console.log(prev)
-        return (prev + cur.price)
-      } else {
-        return (prev + (cur.quantity * cur.price))
-      }
-    },0)
+    // return this.state.selectedItems
+    // .reduce((prev, cur) => {
+    //   console.log(prev)
+    //   console.log(cur)
+    //   if (!cur.quantity) {
+    //     console.log(prev)
+    //     return (prev + cur.price)
+    //   } else {
+    //     return (prev + (cur.quantity * cur.price))
+    //   }
+    // },0)
+  }
+
+  submit = () => {
+    console.log('submit button clicked')
   }
 
   render() {
@@ -88,11 +89,12 @@ class Invoice extends Component {
           <select className="line-items" onChange={this.selectItem}>
             {this.state.lineItems.map((item, index) => <option key={item.id} value={index}>{item.item}</option>)}
           </select>
-          <LineItems items={this.state.selectedItems} currencyFormat={this.formatCurrency}/>
+          <LineItems items={this.state.selectedItems} currencyFormat={this.formatCurrency} updateQuantity={this.calcQuantity}/>
           <div className="total">
             <label>Total</label>
             <div>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
           </div>
+          <button onClick={this.submit}>Submit</button>
         </div>
       </div>
     )
