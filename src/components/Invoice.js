@@ -37,7 +37,12 @@ class Invoice extends Component {
     console.log(selectedItem)
     let newList = this.state.selectedItems.concat(selectedItem)
     console.log(newList)
-    this.setState({selectedItems: Array.from(newList)})
+    let updatedQuantity = newList.map((quantity, i) => {
+      return {...quantity, quantity: 1}
+    })
+    console.log(updatedQuantity)
+    this.setState({selectedItems: updatedQuantity})
+    // this.setState({selectedItems: Array.from(newList)})
   }
 
   formatCurrency = (amount) => {
@@ -49,10 +54,9 @@ class Invoice extends Component {
     }).format(amount))
   }
 
-  calcQuantity = (elementIndex, event) => {
+  calcQuantity = (event) => {
     let updatedQuantity = this.state.selectedItems.map((quantity, i) => {
-      if (elementIndex !== i) return quantity
-      return {...quantity, [event.target.name]: event.target.value}
+      return {...quantity, quantity: event.target.value}
     })
     console.log(updatedQuantity)
     this.setState({selectedItems: updatedQuantity})
