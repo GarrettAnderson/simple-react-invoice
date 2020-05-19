@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import LineItems from './LineItems'
-import LineItem from './LineItem'
 
 
 class Invoice extends Component {
@@ -24,7 +23,7 @@ class Invoice extends Component {
       //   lineItems: resp.data.data
       // })
       let newQuantity = resp.data.data.map((quantity, i) => {
-        return {...quantity, quantity: 0}
+        return {...quantity, quantity: 1}
       })
       console.log(newQuantity)
       this.setState({lineItems: newQuantity})
@@ -61,21 +60,37 @@ class Invoice extends Component {
 
   calcSelectedItemsTotal = () => {
     console.log(this.state.selectedItems)
-    // return this.state.selectedItems
-    // .reduce((prev, cur) => {
-    //   console.log(prev)
-    //   console.log(cur)
-    //   if (!cur.quantity) {
-    //     console.log(prev)
-    //     return (prev + cur.price)
-    //   } else {
-    //     return (prev + (cur.quantity * cur.price))
-    //   }
-    // },0)
+    return this.state.selectedItems
+    .reduce((prev, cur) => {
+      console.log(prev)
+      console.log(cur)
+      if (!cur.quantity) {
+        console.log(prev)
+        return (prev + cur.price)
+      } else {
+        return (prev + (cur.quantity * cur.price))
+      }
+    },0)
   }
 
   submit = () => {
     console.log('submit button clicked')
+    axios.post('https://apidemo.fattlabs.com/invoice', {
+      'meta': {
+        'lineItems': [
+          {
+            'id': 'Test Id',
+            'item': 'Demo Item',
+            'details': 'Test Details',
+            'quantity': 10,
+            'price': 1
+          }
+        ]
+      }
+    })
+    .then((response) => {
+      console.log(response)
+    })
   }
 
   render() {
