@@ -49,11 +49,11 @@ class Invoice extends Component {
     }).format(amount))
   }
 
-  calcQuantity = (event) => {
+  calcQuantity = (elementIndex) => (event) => {
     console.log('updated the quantity amount')
-    let updatedQuantity = this.state.selectedItems.map((quantity, i) => {
-      console.log(quantity)
-      return {...quantity, quantity: event.target.value}
+    let updatedQuantity = this.state.selectedItems.map((item, i) => {
+      console.log(item)
+      return (elementIndex === i) ? {...item, quantity: event.target.value} : item
     })
     console.log(updatedQuantity)
     this.setState({selectedItems: updatedQuantity})
