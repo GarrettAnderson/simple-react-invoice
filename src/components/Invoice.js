@@ -79,14 +79,16 @@ class Invoice extends Component {
       'meta': {
         'lineItems': [
           {
-            'id': 'Test Id',
-            'item': 'Demo Item',
-            'details': 'Test Details',
-            'quantity': 10,
-            'price': 1
+            'id': this.state.selectedItems.id,
+            'item': this.state.selectedItems.item,
+            'details': this.state.selectedItems.details,
+            'quantity': this.state.selectedItems.quantity,
+            'price': this.state.selectedItems.price
           }
         ]
-      }
+      },
+      'total': '10.00',
+      'url': 'https://omni.fattmerchant.com/#/bill/'
     }
 
     
@@ -97,14 +99,18 @@ class Invoice extends Component {
     
     const headers = {
      'Content-Type': 'application/json',
-     'Authorization': AuthStr 
+     'Authorization': AuthStr,
+     'Accept': 'application/json'
     }
     
-    axios.post('https://apidemo.fattlabs.com/invoice', {
-      
+    axios.post('https://apidemo.fattlabs.com/invoice', data, {
+      headers: headers
     })
     .then((response) => {
       console.log(response)
+    })
+    .catch((err) => {
+      console.log('Axios Error: ', err)
     })
   }
 
