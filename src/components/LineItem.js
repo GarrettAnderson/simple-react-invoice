@@ -9,6 +9,7 @@ class LineItem extends Component {
             <div>{this.props.details ? this.props.details : 'No Details'} </div>
             <input name="quantity" type="number" defaultValue="1" step="1" onChange={this.props.calcItemQuantity}></input>
             <div>{this.props.price ? this.props.price : 0}</div>
+            <div>{this.props.currencyFormatter(this.props.quantity * this.props.price)}</div>
         </div>
       </form>
     );
