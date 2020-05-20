@@ -12,9 +12,22 @@ class Invoice extends Component {
     lineItems: [],
     selectedItems: [],
     userData: {
-      total: 0
+      'meta': {
+        'lineItems': [
+          {
+            'id': 'Test ID',
+            'item': 'Test Item Name',
+            'details': 'Test Details',
+            'quantity': 3,
+            'price': 10.00
+          }
+        ]
+      },
+      'total': 0,
+      'url': 'https://omni.fattmerchant.com/#/bill/'
     }
   }
+ 
 
   componentDidMount() {
     const AuthStr =
@@ -77,33 +90,34 @@ class Invoice extends Component {
   }
 
   handleChange = (key, e, value) => {
-    let data = this.state.userData;
-    this.state.userData[key] = e.target.value;
+    let fieldData = {...this.state.userData};
+    fieldData[e.target.name] = e.target.value;
     this.setState({
-      userData: data
+      fieldData
     })
   }
 
   submit = () => {
     const selectedItemsData = this.state.selectedItems.map((item, i) => ({item}))
-    
-    let data = {
-      'meta': {
-        'lineItems': [
-          {
-            'id': this.state.selectedItems.id,
-            'item': this.state.selectedItems.item,
-            'details': this.state.selectedItems.details,
-            'quantity': this.state.selectedItems.quantity,
-            'price': this.state.selectedItems.price
-          }
-        ]
-      },
-      'total': this.state.userData.total,
-      'url': 'https://omni.fattmerchant.com/#/bill/'
-    }
 
-    console.log(selectedItemsData)
+    let data = this.state.userData
+    // let data = {
+    //   'meta': {
+    //     'lineItems': [
+    //       {
+    //         'id': this.state.selectedItems.id,
+    //         'item': this.state.selectedItems.item,
+    //         'details': this.state.selectedItems.details,
+    //         'quantity': this.state.selectedItems.quantity,
+    //         'price': this.state.selectedItems.price
+    //       }
+    //     ]
+    //   },
+    //   'total': this.state.userData.total,
+    //   'url': 'https://omni.fattmerchant.com/#/bill/'
+    // }
+
+    console.log(data)
     console.log('submit button clicked')
     const AuthStr =
     'Bearer ' +
@@ -140,7 +154,7 @@ class Invoice extends Component {
           <LineItems items={this.state.selectedItems} currencyFormat={this.formatCurrency} updateQuantity={this.calcQuantity}/>
           <div className="total">
             <label>Total</label>
-            <div value={this.state.userData.total} onChange={this.handleChange.bind(this, 'total')}>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
+            <div value={this.state.userData.total} onChange={(e) => this.handleChange.call(this, e)}>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
           </div>
           <button onClick={this.submit}>Submit</button>
         </div>
