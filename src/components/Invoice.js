@@ -85,8 +85,7 @@ class Invoice extends Component {
   }
 
   submit = () => {
-    const selectedItemsData = this.state.selectedItems.map((item, i) => {
-    })
+    const selectedItemsData = this.state.selectedItems.map((item, i) => ({item}))
     
     let data = {
       'meta': {
