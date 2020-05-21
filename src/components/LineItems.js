@@ -18,7 +18,18 @@ class LineItems extends Component {
               <div>Delete Item</div>
             </div>
             <div className="selected-item">{this.props.items.map((item, i) => 
-                (<LineItem key={item.id} item={item.id} index={i} name={item.item} details={item.details} price={item.price} quantity={item.quantity} calcItemQuantity={this.props.updateQuantity(i)} currencyFormatter={this.props.currencyFormat}/>
+                (<LineItem 
+                  key={item.id} 
+                  item={item.id} 
+                  index={i} 
+                  name={item.item} 
+                  details={item.details}
+                  price={item.price} 
+                  quantity={item.quantity} 
+                  calcItemQuantity={this.props.updateQuantity(i)} 
+                  currencyFormatter={this.props.currencyFormat} 
+                  removeItem={this.props.removeLineItem}
+                  />
             ))}
           </div>
 

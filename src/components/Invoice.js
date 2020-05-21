@@ -90,11 +90,14 @@ class Invoice extends Component {
     },0)
   }
 
-  handleRemoveLineItem = (event, elementIndex) => {
-    this.setState({
-      selectedItems: this.state.selectedItems.filter((item, i) => {
+  handleRemoveLineItem = (elementIndex) => {
+    console.log('delete button clicked')
+    const deleteLineItem = this.state.selectedItems.filter((item, i) => {
         return elementIndex !== i
-      })
+    })
+    console.log(deleteLineItem)
+    this.setState({
+      selectedItems: deleteLineItem
     })
   }
 
