@@ -28,7 +28,7 @@ class LineItems extends Component {
                   quantity={item.quantity} 
                   calcItemQuantity={this.props.updateQuantity(i)} 
                   currencyFormatter={this.props.currencyFormat} 
-                  removeItem={this.props.removeLineItem}
+                  removeItem={this.props.removeLineItem(i)}
                   />
             ))}
           </div>
