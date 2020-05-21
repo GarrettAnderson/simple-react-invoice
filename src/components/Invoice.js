@@ -89,11 +89,9 @@ class Invoice extends Component {
     },0)
   }
 
-  handleChange = (key, e, value) => {
-    let fieldData = {...this.state.userData};
-    fieldData[e.target.name] = e.target.value;
+  handleChange = (e) => {
     this.setState({
-      fieldData
+      [e.target.name]: e.target.value
     })
   }
 
@@ -154,7 +152,7 @@ class Invoice extends Component {
           <LineItems items={this.state.selectedItems} currencyFormat={this.formatCurrency} updateQuantity={this.calcQuantity}/>
           <div className="total">
             <label>Total</label>
-            <div value={this.state.userData.total} onChange={(e) => this.handleChange.call(this, e)}>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
+            <div value={this.state.userData.total} onChange={this.handleChange}>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
           </div>
           <button onClick={this.submit}>Submit</button>
         </div>
