@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import { MdCancel as DeleteIcon } from 'react-icons/md'
+import { MdCancel as DeleteIcon } from 'react-icons/md';
+import styles from './LineItem.scss'
 
 class LineItem extends Component {
   render() {
     return (
-        <div className="lineItem">
+        <div className="line-item">
             <div>{this.props.index + 1}</div>
-            <div>{this.props.name ? this.props.name : 'Item Name'}</div>
-            <div>{this.props.details ? this.props.details : 'No Details'} </div>
+            <div><input value={this.props.name ? this.props.name : 'Item Name'}></input></div>
+            <div><input value={this.props.details ? this.props.details : 'No Details'}></input> </div>
+            <div>
             <input name="quantity" type="number" value={this.props.quantity} step="1" onChange={this.props.calcItemQuantity}></input>
-            <div>{this.props.price ? this.props.price : 0}</div>
-            <div>{this.props.currencyFormatter(this.props.quantity * this.props.price)}</div>
+            </div>
+            <div><input value={this.props.price ? this.props.price : 0}></input></div>
+            <div><input value={this.props.currencyFormatter(this.props.quantity * this.props.price)}></input></div>
             <div>
               <button type="button" className="delete-item">
                 <DeleteIcon size="1.25em"/>
