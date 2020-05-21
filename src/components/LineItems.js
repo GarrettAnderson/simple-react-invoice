@@ -5,8 +5,8 @@ class LineItems extends Component {
   render() {
     return (
      <form>
-        <div className="lineItems">
-          <div className="gridTable">
+        <div className="line-items">
+          <div className="grid-table">
             <div className="row header">
               <div>#</div>
               <div>Item Name</div>
@@ -14,6 +14,7 @@ class LineItems extends Component {
               <div>Qty</div>
               <div>Price</div>
               <div>Amount</div>
+              <div>Delete Item</div>
             </div>
             <div className="selected-item">{this.props.items.map((item, i) => 
                 (<LineItem key={item.id} item={item.id} index={i} name={item.item} details={item.details} price={item.price} quantity={item.quantity} calcItemQuantity={this.props.updateQuantity(i)} currencyFormatter={this.props.currencyFormat}/>

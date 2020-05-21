@@ -1,12 +1,4 @@
-$rhythm: 20px;
-
-$invoiceMaxWidth: 800px;
-$borderRadius: 4px;
-
-$tableBorderColor: #ccc;
-$boxBgColor: #eee;
-$bgColor: white;
-$addColor: darkgreen;
+@import 'InvoiceVariables';
 
 .invoice {
     max-width: $invoiceMaxWidth;
@@ -34,8 +26,7 @@ $addColor: darkgreen;
 
     & > .row {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      border-bottom: 1px solid $tableBorderColor;
+      grid-template-columns: repeat(2, 1fr);  
     
     & > div {
       padding: $rhythm / 2;
@@ -60,4 +51,12 @@ $addColor: darkgreen;
   display: flex;
   justify-content: flex-end;
   padding: $rhythm 0 $rhythm $rhythm;
+}
+
+.pay-now {
+  display: block;
+  padding: $rhythm ($rhythm * 2);
+  background: lightyellow;
+  border-radius: $borderRadius;
+  border: 1px solid #444;
 }
