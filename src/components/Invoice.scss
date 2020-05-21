@@ -31,5 +31,33 @@ $addColor: darkgreen;
   width: 100%;
   min-width: $invoiceMaxWidth / 3;
   max-width: $invoiceMaxWidth / 3;
+
+    & > .row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border-bottom: 1px solid $tableBorderColor;
+    
+    & > div {
+      padding: $rhythm / 2;
+    }
+
+    & > .label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    & > .total-amount {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   
+  }
+}
+
+.pay {
+  display: flex;
+  justify-content: flex-end;
+  padding: $rhythm 0 $rhythm $rhythm;
 }

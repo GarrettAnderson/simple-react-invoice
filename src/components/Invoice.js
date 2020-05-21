@@ -162,12 +162,15 @@ class Invoice extends Component {
             <div className="value-table">
               <div className="row">
                 <label className="label">Total</label>
-               <div value={this.state.userData.total} onChange={this.handleChange}>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
+               <div className="total-amount" value={this.state.userData.total} onChange={this.handleChange}>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
               </div>
             </div>
           </div>
-          <button onClick={this.submit}>Submit</button>
-        
+
+          <div className="pay">
+            <button className="pay-now" onClick={this.submit}>Pay Now</button>
+          </div>
+
       </div>
     )
   }
