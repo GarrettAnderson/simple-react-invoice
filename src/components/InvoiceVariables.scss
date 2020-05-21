@@ -7,3 +7,9 @@ $tableBorderColor: #ccc;
 $boxBgColor: #eee;
 $bgColor: white;
 $addColor: darkgreen;
+
+%flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
