@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { MdCancel as DeleteIcon } from 'react-icons/md'
 
 class LineItem extends Component {
   render() {
@@ -10,6 +11,11 @@ class LineItem extends Component {
             <input name="quantity" type="number" value={this.props.quantity} step="1" onChange={this.props.calcItemQuantity}></input>
             <div>{this.props.price ? this.props.price : 0}</div>
             <div>{this.props.currencyFormatter(this.props.quantity * this.props.price)}</div>
+            <div>
+              <button type="button" className="delete-item">
+                <DeleteIcon size="1.25em"/>
+              </button>
+            </div>
         </div>
     );
   }
