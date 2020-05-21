@@ -52,6 +52,5 @@ input {
 
 input[type=number] {
   border: 1px solid lighten($tableBorderColor, 2%);
-  display: flex;
-  
+  padding-left: 1rem;
 }

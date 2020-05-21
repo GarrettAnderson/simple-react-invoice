@@ -14,7 +14,7 @@ class LineItems extends Component {
               <div>Details</div>
               <div>Qty</div>
               <div>Price</div>
-              <div>Amount</div>
+              <div>Total</div>
               <div>Delete Item</div>
             </div>
             <div className="selected-item">{this.props.items.map((item, i) => 
