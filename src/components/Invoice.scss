@@ -1,0 +1,18 @@
+$rhythm: 20px;
+
+$invoiceMaxWidth: 800px;
+$borderRadius: 4px;
+
+$tableBorderColor: #ccc;
+$boxBgColor: #eee;
+$bgColor: white;
+$addColor: darkgreen;
+
+.invoice {
+    max-width: $invoiceMaxWidth;
+    margin: ($rhythm * 2) auto;
+    border: 1px solid $tableBorderColor;
+    padding: $rhythm * 2;
+    border-radius: $borderRadius;
+    background: $bgColor;
+}

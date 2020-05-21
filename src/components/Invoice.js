@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styles from './Invoice.scss'
 import axios from 'axios'
 import LineItems from './LineItems'
 
@@ -149,13 +150,17 @@ class Invoice extends Component {
           <select className="line-items" onChange={this.selectItem}>
             {this.state.lineItems.map((item, index) => <option key={item.id} value={index}>{item.item}</option>)}
           </select>
+        </div>
+          
+        <h2>Invoice</h2>  
           <LineItems items={this.state.selectedItems} currencyFormat={this.formatCurrency} updateQuantity={this.calcQuantity}/>
+          
           <div className="total">
             <label>Total</label>
             <div value={this.state.userData.total} onChange={this.handleChange}>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
           </div>
           <button onClick={this.submit}>Submit</button>
-        </div>
+        
       </div>
     )
   }
