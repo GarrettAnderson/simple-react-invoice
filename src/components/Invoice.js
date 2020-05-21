@@ -90,6 +90,14 @@ class Invoice extends Component {
     },0)
   }
 
+  handleRemoveLineItem = (event, elementIndex) => {
+    this.setState({
+      selectedItems: this.state.selectedItems.filter((item, i) => {
+        return elementIndex !== i
+      })
+    })
+  }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -156,7 +164,9 @@ class Invoice extends Component {
           <LineItems 
             items={this.state.selectedItems} 
             currencyFormat={this.formatCurrency} 
-            updateQuantity={this.calcQuantity}/>
+            updateQuantity={this.calcQuantity}
+            removeLineItem={this.handleRemoveLineItem}
+            />
           
           <div className="total-container">
             <div className="value-table">
