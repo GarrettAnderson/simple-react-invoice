@@ -143,7 +143,7 @@ class Invoice extends Component {
     return (
       <div className="invoice">
         <div className="memo">
-          <h3>Memo:</h3>
+          <h2>Memo:</h2>
           <textarea name="memo-text" col="50" row="5" />
         </div>
         <div className="item-choice">
@@ -153,11 +153,18 @@ class Invoice extends Component {
         </div>
           
         <h2>Invoice</h2>  
-          <LineItems items={this.state.selectedItems} currencyFormat={this.formatCurrency} updateQuantity={this.calcQuantity}/>
+          <LineItems 
+            items={this.state.selectedItems} 
+            currencyFormat={this.formatCurrency} 
+            updateQuantity={this.calcQuantity}/>
           
-          <div className="total">
-            <label>Total</label>
-            <div value={this.state.userData.total} onChange={this.handleChange}>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
+          <div className="total-container">
+            <div className="value-table">
+              <div className="row">
+                <label className="label">Total</label>
+               <div value={this.state.userData.total} onChange={this.handleChange}>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
+              </div>
+            </div>
           </div>
           <button onClick={this.submit}>Submit</button>
         

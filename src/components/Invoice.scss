@@ -16,3 +16,20 @@ $addColor: darkgreen;
     border-radius: $borderRadius;
     background: $bgColor;
 }
+
+.total-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.value-table {
+  margin: 0 0 0 auto;
+  border: 1px solid $tableBorderColor;
+  border-radius: $borderRadius;
+  overflow: hidden;
+  width: 100%;
+  min-width: $invoiceMaxWidth / 3;
+  max-width: $invoiceMaxWidth / 3;
+  
+}
