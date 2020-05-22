@@ -95,25 +95,24 @@ class Invoice extends Component {
   }
 
   submit = () => {
-  // let selectedItemsData = this.state.selectedItems.map((item, i) => ({item}))
-
-  for (var i = 0; i < this.state.selectedItems.length; i++) {
+  // let selectedItemsData = this.state.selectedItems.map((item, i) => ({item.id}))
     var data = {
       'meta': {
-        'lineItems': [
-          {
-            'id': this.state.selectedItems[i].id,
-            'item': this.state.selectedItems[i].item,
-            'details': this.state.selectedItems[i].details,
-            'quantity': this.state.selectedItems[i].quantity,
-            'price': this.state.selectedItems[i].price
+        'lineItems': this.state.selectedItems.map(item => {
+          return {
+            'id': item.id,
+            'item': item.item,
+            'details': item.details,
+            'quantity': item.quantity,
+            'price': item.price
           }
-        ]
-      },
+      }),
       'total': this.calcSelectedItemsTotal(),
       'url': 'https://omni.fattmerchant.com/#/bill/'
     }
-  }
+  }  
+  
+  
 
       // lineItems: [
       //         {
