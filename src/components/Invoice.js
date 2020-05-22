@@ -11,21 +11,7 @@ class Invoice extends Component {
 
   state = {
     lineItems: [],
-    selectedItems: [],
-    userData: {
-      'meta': {
-        'lineItems': [
-          {
-            'id': 'Test ID',
-            'item': 'Test Item Name',
-            'details': 'Test Details',
-            'quantity': 3,
-            'price': 10.00
-          }
-        ]
-      },
-      'total': 0,
-      'url': 'https://omni.fattmerchant.com/#/bill/'
+    selectedItems: []
     }
   }
  
@@ -77,7 +63,7 @@ class Invoice extends Component {
 
   calcSelectedItemsTotal = () => {
     console.log(this.state.selectedItems)
-    return this.state.selectedItems
+    const totalAmount = this.state.selectedItems
     .reduce((prev, cur) => {
       console.log(prev)
       console.log(cur)
@@ -88,6 +74,7 @@ class Invoice extends Component {
         return (prev + (cur.quantity * cur.price))
       }
     },0)
+    return totalAmount
   }
 
   handleRemoveLineItem = (elementIndex) => {
@@ -98,32 +85,35 @@ class Invoice extends Component {
     //   })
     // })
   }
+ 
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
+  handleChange = (event) => {
+    console.log(event.target.value)
+    // this.setState({
+    //   total: input
+    // })
   }
 
   submit = () => {
     const selectedItemsData = this.state.selectedItems.map((item, i) => ({item}))
+    console.log(selectedItemsData)
 
-    let data = this.state.userData
-    // let data = {
-    //   'meta': {
-    //     'lineItems': [
-    //       {
-    //         'id': this.state.selectedItems.id,
-    //         'item': this.state.selectedItems.item,
-    //         'details': this.state.selectedItems.details,
-    //         'quantity': this.state.selectedItems.quantity,
-    //         'price': this.state.selectedItems.price
-    //       }
-    //     ]
-    //   },
-    //   'total': this.state.userData.total,
-    //   'url': 'https://omni.fattmerchant.com/#/bill/'
-    // }
+    // let data = this.state.userData
+    let data = {
+      'meta': {
+        'lineItems': [
+          {
+            'id': this.state.selectedItems[0].id,
+            'item': this.state.selectedItems[0].item,
+            'details': this.state.selectedItems.details,
+            'quantity': this.state.selectedItems.quantity,
+            'price': this.state.selectedItems.price
+          }
+        ]
+      },
+      'total': this.calcSelectedItemsTotal(),
+      'url': 'https://omni.fattmerchant.com/#/bill/'
+    }
 
     console.log(data)
     console.log('submit button clicked')
@@ -173,7 +163,9 @@ class Invoice extends Component {
             <div className="value-table">
               <div className="row">
                 <label className="label">Total</label>
-               <div className="total-amount" value={this.state.userData.total} onChange={this.handleChange}>{this.formatCurrency(this.calcSelectedItemsTotal())}</div>
+                <div>
+                 <input readOnly className="total-amount" value={this.formatCurrency(this.calcSelectedItemsTotal())}></input>
+                </div>
               </div>
             </div>
           </div>
