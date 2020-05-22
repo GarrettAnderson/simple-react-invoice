@@ -13,7 +13,7 @@ class Invoice extends Component {
     lineItems: [],
     selectedItems: []
     }
-  }
+  
  
 
   componentDidMount() {
@@ -95,27 +95,56 @@ class Invoice extends Component {
   }
 
   submit = () => {
-    const selectedItemsData = this.state.selectedItems.map((item, i) => ({item}))
-    console.log(selectedItemsData)
+  // let selectedItemsData = this.state.selectedItems.map((item, i) => ({item}))
 
-    // let data = this.state.userData
-    let data = {
+  for (var i = 0; i < this.state.selectedItems.length; i++) {
+    var data = {
       'meta': {
         'lineItems': [
           {
-            'id': this.state.selectedItems[0].id,
-            'item': this.state.selectedItems[0].item,
-            'details': this.state.selectedItems.details,
-            'quantity': this.state.selectedItems.quantity,
-            'price': this.state.selectedItems.price
+            'id': this.state.selectedItems[i].id,
+            'item': this.state.selectedItems[i].item,
+            'details': this.state.selectedItems[i].details,
+            'quantity': this.state.selectedItems[i].quantity,
+            'price': this.state.selectedItems[i].price
           }
         ]
       },
       'total': this.calcSelectedItemsTotal(),
       'url': 'https://omni.fattmerchant.com/#/bill/'
     }
+  }
 
-    console.log(data)
+      // lineItems: [
+      //         {
+      //           id: {item}[i].id,
+      //           item: this.state.selectedItems[0].item,
+      //           details: this.state.selectedItems.details,
+      //           quantity: this.state.selectedItems.quantity,
+      //           price: this.state.selectedItems.price
+      //         }
+      //       ]
+      // }))
+    console.log(data) 
+
+    // let data = this.state.userData
+    // let data = {
+    //   'meta': {
+    //     'lineItems': [
+    //       {
+    //         'id': this.state.selectedItems[0].id,
+    //         'item': this.state.selectedItems[0].item,
+    //         'details': this.state.selectedItems.details,
+    //         'quantity': this.state.selectedItems.quantity,
+    //         'price': this.state.selectedItems.price
+    //       }
+    //     ]
+    //   },
+    //   'total': this.calcSelectedItemsTotal(),
+    //   'url': 'https://omni.fattmerchant.com/#/bill/'
+    // }
+
+    // console.log(data)
     console.log('submit button clicked')
     const AuthStr =
     'Bearer ' +
@@ -127,15 +156,15 @@ class Invoice extends Component {
      'Accept': 'application/json'
     }
     
-    axios.post('https://apidemo.fattlabs.com/invoice', data, {
-      headers: headers
-    })
-    .then((response) => {
-      console.log(response)
-    })
-    .catch((err) => {
-      console.log('Axios Error: ', err)
-    })
+    // axios.post('https://apidemo.fattlabs.com/invoice', data, {
+    //   headers: headers
+    // })
+    // .then((response) => {
+    //   console.log(response)
+    // })
+    // .catch((err) => {
+    //   console.log('Axios Error: ', err)
+    // })
   }
 
   render() {
