@@ -9,6 +9,20 @@
     background: $bgColor;
 }
 
+.customer {
+  width: 80%;
+
+  & > h2 {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  & > input.fname {
+    border: 1px solid $tableBorderColor;
+    border-radius: $borderRadius;
+  }
+}
+
 .total-container {
   display: flex;
   flex-flow: row wrap;

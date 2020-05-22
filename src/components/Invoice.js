@@ -88,29 +88,33 @@ class Invoice extends Component {
  
 
   handleChange = (event) => {
-    console.log(event.target.value)
-    // this.setState({
-    //   total: input
-    // })
+    console.log(event.target.name)
+    this.setState({
+      [event.target.name]: event.target.value
+    })
   }
 
   submit = () => {
+
+    var lineItemData = this.state.selectedItems.map(item => {
+      return {
+        'id': item.id,
+        'item': item.item,
+        'details': item.details,
+        'quantity': item.quantity,
+        'price': item.price
+      }
+     })
+
     var data = {
       'meta': {
-        'lineItems':
-          this.state.selectedItems.map(item => {
-           return {
-             'id': item.id,
-             'item': item.item,
-             'details': item.details,
-             'quantity': item.quantity,
-             'price': item.price
-           }
-      }),
+        'lineItems': lineItemData,
+        'memo': this.state.memo
+      },
       'total': this.calcSelectedItemsTotal(),
       'url': 'https://omni.fattmerchant.com/#/bill/'
     }
-  }  
+    
 
   console.log(data) 
   console.log('submit button clicked')
@@ -137,16 +141,20 @@ class Invoice extends Component {
   render() {
     return (
       <div className="invoice">
+        <div class="customer">
+          <h2>Customer</h2>
+            <label>First Name</label>
+            <input className="fname" onChange={this.handleChange}/>
+        </div>
         <div className="memo">
           <h2>Memo:</h2>
-          <textarea name="memo-text" col="50" row="5" />
+          <textarea name="memo" col="50" row="5" onChange={this.handleChange}/>
         </div>
         <div className="item-choice">
           <select className="line-items" onChange={this.selectItem}>
             {this.state.lineItems.map((item, index) => <option key={item.id} value={index}>{item.item}</option>)}
           </select>
         </div>
-          
         <h2>Invoice</h2>  
           <LineItems 
             items={this.state.selectedItems} 
