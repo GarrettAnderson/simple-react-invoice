@@ -112,7 +112,12 @@ class Invoice extends Component {
         'memo': this.state.memo
       },
       'total': this.calcSelectedItemsTotal(),
-      'url': 'https://omni.fattmerchant.com/#/bill/'
+      'url': 'https://omni.fattmerchant.com/#/bill/',
+      'customer': {
+        'firstname': this.state.fname,
+        'lastname': this.state.lname,
+        'email': this.state.email
+      }
     }
     
 
@@ -141,17 +146,22 @@ class Invoice extends Component {
   render() {
     return (
       <div className="invoice">
-        <div class="customer">
-          <h2>Customer</h2>
+        <div className="customer">
+          <h2>Customer:</h2>
             <label>First Name</label>
-            <input className="fname" onChange={this.handleChange}/>
+            <input className="fname" name="fname" onChange={this.handleChange}/>
+            <label>Last Name</label>
+            <input className="lname" name="lname" onChange={this.handleChange}/>
+            <label>Email</label>
+            <input className="email" name="email" onChange={this.handleChange}/>
         </div>
         <div className="memo">
           <h2>Memo:</h2>
           <textarea name="memo" col="50" row="5" onChange={this.handleChange}/>
         </div>
         <div className="item-choice">
-          <select className="line-items" onChange={this.selectItem}>
+          <h2>Choose an Item:</h2>
+          <select className="select-line-item" onChange={this.selectItem}>
             {this.state.lineItems.map((item, index) => <option key={item.id} value={index}>{item.item}</option>)}
           </select>
         </div>

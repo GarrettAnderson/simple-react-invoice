@@ -10,17 +10,22 @@
 }
 
 .customer {
-  width: 80%;
+  width: 30%;
 
-  & > h2 {
-    display: flex;
-    justify-content: flex-end;
-  }
 
-  & > input.fname {
+  & > input {
     border: 1px solid $tableBorderColor;
     border-radius: $borderRadius;
+    margin-bottom: 0.5rem;
   }
+}
+
+
+textarea {
+  width: 31%;
+  height: 5rem;
+  border: 1px solid $tableBorderColor;
+  border-radius: $borderRadius;
 }
 
 .total-container {
