@@ -28,6 +28,11 @@ textarea {
   border-radius: $borderRadius;
 }
 
+.select-line-item {
+  height: 1.5rem;
+  width: 32%;
+}
+
 .total-container {
   display: flex;
   flex-flow: row wrap;
