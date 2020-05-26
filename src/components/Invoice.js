@@ -114,8 +114,8 @@ class Invoice extends Component {
       'total': this.calcSelectedItemsTotal(),
       'url': 'https://omni.fattmerchant.com/#/bill/',
       'customer': {
-        'firstname': this.state.fname,
-        'lastname': this.state.lname,
+        'firstName': this.state.fname,
+        'lastName': this.state.lname,
         'email': this.state.email
       }
     }
@@ -141,6 +141,10 @@ class Invoice extends Component {
     .catch((err) => {
       console.log('Axios Error: ', err)
     })
+
+    alert('Your Invoice Was Submitted!')
+    window.location.reload()
+    return false
   }
 
   render() {
