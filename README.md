@@ -11,7 +11,7 @@
 	  * Create a SASS file titled LineItem.scss and paste in the code from the project repo’s LineItem.scss file
 
 3. In your command line terminal navigate to the project directory:
-	  * npm install or yarn add the axios package. [Here is a link to the npm site] (https://www.npmjs.com/package/axios)
-	  * npm install or yarn add the node-sass package. [Here is a link to the npm site] (https://www.npmjs.com/package/node-sass)
-	  * npm install or yarn add the node-sass package. [Here is a link to the npm site] (https://www.npmjs.com/package/react-icons)
+	  * npm install or yarn add the axios package. Here is a link to the npm site: https://www.npmjs.com/package/axios
+	  * npm install or yarn add the node-sass package. Here is a link to the npm site: https://www.npmjs.com/package/node-sass
+	  * npm install or yarn add the node-sass package. Here is a link to the npm site: https://www.npmjs.com/package/react-icons
 	
