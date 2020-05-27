@@ -26,7 +26,7 @@ class Invoice extends Component {
       //   lineItems: resp.data.data
       // })
       let newQuantity = resp.data.data.map((quantity, i) => {
-        return {...quantity, quantity: 1}
+        return {...quantity, quantity: 0}
       })
       console.log(newQuantity)
       this.setState({lineItems: newQuantity})
@@ -39,7 +39,10 @@ class Invoice extends Component {
     console.log(selectedItem)
     let newList = this.state.selectedItems.concat(selectedItem)
     console.log(newList)
-    this.setState({selectedItems: Array.from(newList)})
+    let newQuantity = newList.map((quantity) => {
+      return {...quantity, quantity: 1}
+    })
+    this.setState({selectedItems: Array.from(newQuantity)})
   }
 
   formatCurrency = (amount) => {
@@ -51,7 +54,7 @@ class Invoice extends Component {
     }).format(amount))
   }
 
-  calcQuantity = (elementIndex) => (event) => {
+  updateQuantity = (elementIndex) => (event) => {
     console.log('updated the quantity amount')
     let updatedQuantity = this.state.selectedItems.map((item, i) => {
       console.log(item)
@@ -79,11 +82,11 @@ class Invoice extends Component {
 
   handleRemoveLineItem = (elementIndex) => {
     console.log('delete button clicked')
-    // this.setState({
-    //   selectedItems: this.state.selectedItems.filter((item, i) => {
-    //     return elementIndex !== i
-    //   })
-    // })
+    this.setState({
+      selectedItems: this.state.selectedItems.filter((item, i) => {
+        return elementIndex !== i
+      })
+    })
   }
  
 
@@ -173,7 +176,7 @@ class Invoice extends Component {
           <LineItems 
             items={this.state.selectedItems} 
             currencyFormat={this.formatCurrency} 
-            updateQuantity={this.calcQuantity}
+            updateQuantity={this.updateQuantity}
             removeLineItem={this.handleRemoveLineItem}
             />
           
