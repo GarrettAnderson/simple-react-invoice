@@ -15,7 +15,7 @@ class LineItem extends Component {
             <div><input readOnly value={this.props.price ? this.props.price : 0}></input></div>
             <div><input readOnly value={this.props.currencyFormatter(this.props.quantity * this.props.price)}></input></div>
             <div>
-              <button type="button" className="delete-item" onClick={this.props.removeItem}>
+              <button type="button" className="delete-item" onClick={this.props.removeItem(this.props.index)}>
                 <DeleteIcon size="1.25em"/>
               </button>
             </div>

@@ -39,8 +39,8 @@ class Invoice extends Component {
     console.log(selectedItem)
     let newList = this.state.selectedItems.concat(selectedItem)
     console.log(newList)
-    let newQuantity = newList.map((quantity) => {
-      return {...quantity, quantity: 1}
+    let newQuantity = newList.map((item, i) => {
+      return {...item, quantity: 1}
     })
     this.setState({selectedItems: Array.from(newQuantity)})
   }
@@ -80,12 +80,15 @@ class Invoice extends Component {
     return totalAmount
   }
 
-  handleRemoveLineItem = (elementIndex) => {
+  handleRemoveLineItem = (elementIndex) => (event) => {
+    event.preventDefault()
     console.log('delete button clicked')
+    let filteredItem = this.state.selectedItems.filter((item, i) => {
+      return elementIndex !== i
+    })
+    console.log(filteredItem)
     this.setState({
-      selectedItems: this.state.selectedItems.filter((item, i) => {
-        return elementIndex !== i
-      })
+      selectedItems: filteredItem
     })
   }
  
