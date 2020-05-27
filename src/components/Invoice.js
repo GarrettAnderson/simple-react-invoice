@@ -26,7 +26,7 @@ class Invoice extends Component {
       //   lineItems: resp.data.data
       // })
       let newQuantity = resp.data.data.map((quantity, i) => {
-        return {...quantity, quantity: 0}
+        return {...quantity, quantity: 1}
       })
       console.log(newQuantity)
       this.setState({lineItems: newQuantity})
@@ -34,15 +34,17 @@ class Invoice extends Component {
   }
 
   selectItem = (event) => {
-    console.log(event.target.value)
-    let selectedItem = this.state.lineItems[parseInt(event.target.value)]
+    const selectedItem = this.state.lineItems[parseInt(event.target.value)]
     console.log(selectedItem)
-    let newList = this.state.selectedItems.concat(selectedItem)
-    console.log(newList)
-    let newQuantity = newList.map((item) => 
-      item.id == selectedItem.id ? {...item, quantity: item.quantity + 1} : item
-    )
-    this.setState({selectedItems: Array.from(newQuantity)})
+    const alreadyExists = this.state.selectedItems.some(item => item.id == selectedItem.id)
+    if (alreadyExists) {
+      let newList = this.state.selectedItems.map((item) => 
+        item.id == selectedItem.id ? {...item, quantity: item.quantity + 1} : item
+      )
+      this.setState({selectedItems: newList})
+    } else {
+      this.setState({selectedItems: [...this.state.selectedItems, selectedItem]})
+    }
   }
 
   formatCurrency = (amount) => {
