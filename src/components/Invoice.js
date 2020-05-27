@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styles from './Invoice.scss'
 import axios from 'axios'
-import LineItems from './LineItems'
+import SelectedLineItems from './SelectedLineItems'
 
 
 class Invoice extends Component {
@@ -34,14 +34,14 @@ class Invoice extends Component {
   }
 
   selectItem = (event) => {
-    console.log(event)
+    console.log(event.target.value)
     let selectedItem = this.state.lineItems[parseInt(event.target.value)]
     console.log(selectedItem)
     let newList = this.state.selectedItems.concat(selectedItem)
     console.log(newList)
-    let newQuantity = newList.map((item, i) => {
-      return {...item, quantity: 1}
-    })
+    let newQuantity = newList.map((item) => 
+      item.id == selectedItem.id ? {...item, quantity: item.quantity + 1} : item
+    )
     this.setState({selectedItems: Array.from(newQuantity)})
   }
 
@@ -176,7 +176,7 @@ class Invoice extends Component {
           </select>
         </div>
         <h2>Invoice</h2>  
-          <LineItems 
+          <SelectedLineItems 
             items={this.state.selectedItems} 
             currencyFormat={this.formatCurrency} 
             updateQuantity={this.updateQuantity}

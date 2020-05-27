@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LineItem from './LineItem'
-import styles from './LineItems.scss'
+import styles from './SelectedLineItems.scss'
 
 class LineItems extends Component {
   render() {
